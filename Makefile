@@ -3,13 +3,11 @@ PROJECT_NAME = excel_to_pdf_project
 VENV_DIR = venv
 REQUIREMENTS_FILE = requirements.txt
 GITHUB_REPO = https://github.com/Lusija777/excel_to_pdf.git
-SRC_DIR = src
-INIT_FILE = $(SRC_DIR)/init.py
 
 # Default target
 all: setup
 
-setup: install_python clone_repo init venv
+setup: install_python clone_repo venv
 
 # Install Python 3 and pip
 install_python:
@@ -23,16 +21,6 @@ clone_repo:
 	@echo "Cloning the project from GitHub..."
 	git clone $(GITHUB_REPO) $(PROJECT_NAME)
 	@echo "Repository cloned."
-
-# Create init.py with specified content
-init:
-	@mkdir -p $(SRC_DIR)
-	@echo "Creating init.py..."
-	@echo "input_file = VAS_TABULKOVY_SUBOR" > $(INIT_FILE)
-	@echo "title1 = HLAVNY_NAZOV" >> $(INIT_FILE)
-	@echo "title2 = VYCHOVAVATEL" >> $(INIT_FILE)
-	@echo "title3 = SKOLSKY_ROK" >> $(INIT_FILE)
-	@echo "init.py created with specified content."
 
 # Create a virtual environment and install dependencies
 venv:

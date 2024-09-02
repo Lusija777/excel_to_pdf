@@ -1,4 +1,4 @@
-input_file = 'Zoznam žiakov.ods'
-title1 = "Zoznam žiakov – 1. výchovná skupina"
-title2 = "Vychovávateľ: Ing. Anton Lahučký"
-title3 = "2024/2025"
+input_file = 'VAS_TABULKOVY_SUBOR'
+title1 = 'HLAVNY_NAZOV'
+title2 = 'VYCHOVAVATEL'
+title3 = 'SKOLSKY_ROK'
