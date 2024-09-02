@@ -1,5 +1,4 @@
-from pandas import DataFrame
-
+import os
 from init import *
 from datetime import datetime
 import pandas
@@ -172,9 +171,11 @@ def excel_to_pdf(input_file):
                 print("Nevybrali ste žiadne stĺpce. Skúste to znova.")
                 continue
 
-            df = load_data(input_file)
+            input_file_path = os.path.join('..', input_file)
+            df = load_data(input_file_path)
 
-            output_pdf = generate_unique_filename(base_output_name)
+            output_pdf = os.path.join('..', generate_unique_filename(base_output_name))
+
             create_pdf(df, output_pdf, columns)
 
             continue_choice = input(
