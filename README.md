@@ -9,7 +9,10 @@ Tento nástroj ponúka výber stĺpcov pre vychovávateľov, čo im umožňuje j
 
 2. **Nutné požiadavky:**
    - Uistite sa, že máte nainštalovaný `git`. Pre Windows si ho môžete stiahnuť [z tohto odkazu](https://git-scm.com/download/win).
-   - Pre windows: python3, pip, make command (minGW [z tohto odkazu](https://sourceforge.net/projects/mingw/) a potom postupujte podľa [tohto návodu](https://medium.com/@samsorrahman/how-to-run-a-makefile-in-windows-b4d115d7c516))
+   - Pre windows:
+        - python3 (potrebné pridať do environmentálnych premenných),
+        - pip (do cmd `python -m ensurepip --upgrade`),
+        - make command (minGW [z tohto odkazu](https://sourceforge.net/projects/mingw/) a potom postupujte podľa [tohto návodu](https://medium.com/@samsorrahman/how-to-run-a-makefile-in-windows-b4d115d7c516))
 
 3. **Vytvorenie projektu:**
    - Otvorte terminál a zadajte príkaz `make`.
