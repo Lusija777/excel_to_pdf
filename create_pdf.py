@@ -1,3 +1,5 @@
+from pandas import DataFrame
+
 from init import *
 from datetime import datetime
 import pandas
@@ -30,6 +32,41 @@ def format_dates(df, date_columns):
 
 def replace_nan_with_empty(df):
     return df.fillna('')
+
+
+def calculate_column_widths(df, doc_width):
+    # Calculate the maximum length of entries in each column
+    max_data_lengths = df.apply(lambda x: x.astype(str).map(len).max(), axis=0)
+
+    # Calculate the length of column headers
+    header_lengths = df.columns.to_series().map(len) +2
+
+    # Combine header lengths with data lengths
+    combined_lengths = pandas.concat([header_lengths, max_data_lengths], axis=1)
+    combined_lengths.columns = ['Header', 'Data']
+    max_lengths = combined_lengths.max(axis=1)
+
+    # Calculate the total length of all columns combined
+    total_length = max_lengths.sum()
+
+    # Calculate widths based on the proportion of the total length of content
+    # Ensure the total width does not exceed the document width
+    if total_length == 0:
+        col_widths = [doc_width / len(df.columns)] * len(df.columns)
+    else:
+        col_widths = [(doc_width * (length / total_length)) for length in max_lengths]
+
+    # Optionally, you can set a minimum width for columns
+    min_width = 40
+    col_widths = [max(min_width, width) for width in col_widths]
+
+    # Ensure that the total width does not exceed the document width
+    total_col_width = sum(col_widths)
+    if total_col_width > doc_width:
+        # Adjust column widths proportionally to fit within document width
+        col_widths = [width * (doc_width / total_col_width) for width in col_widths]
+
+    return col_widths
 
 # Create a PDF from the DataFrame
 def create_pdf(df, output_pdf_path, columns):
@@ -74,8 +111,9 @@ def create_pdf(df, output_pdf_path, columns):
 
     data = [filtered_df.columns.tolist()] + filtered_df.values.tolist()
 
+    column_widths = calculate_column_widths(filtered_df, doc.width)
     # Create table
-    table = Table(data)
+    table = Table(data, colWidths=column_widths)
     table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), '#d5d5d5'),
         ('GRID', (0, 0), (-1, -1), 1, 'black'),
@@ -95,7 +133,7 @@ def get_user_input():
     available_columns = [
         'Izba', 'Škola', 'Trieda', 'Bydlisko', 'Dátum narodenia', 'Telefónne číslo', 'Matka', 'Otec', 'Triedny', 'Triedny telefón', 'Tréner', 'Tréner telefón', 'Aktivita',
     ]
-    print("Prosím vyberte maximum 4 stĺpce s daného listu: (P.č. a Priezvisko a meno sú vybrané automaticky)")
+    print("Prosím vyberte maximum 3 stĺpce s daného listu: (P.č. a Priezvisko a meno sú vybrané automaticky)")
 
     for i, column in enumerate(available_columns, start=1):
         print(f"{i}. {column}")
@@ -103,7 +141,7 @@ def get_user_input():
     selected_indices = input("Vložte Váš výber oddelený čiarkou (e.g., 1,3,5): ").strip().split(',')
     selected_indices = [int(index) for index in selected_indices if index.isdigit()]
 
-    if len(set(selected_indices)) > 4:
+    if len(set(selected_indices)) > 3:
         print("Môžete vybrať maximálne 3 stĺpce. Skúste to znova.")
         return 0
 
