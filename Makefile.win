@@ -1,0 +1,48 @@
+# Define variables
+PROJECT_NAME = excel_to_pdf_project
+VENV_DIR = venv
+REQUIREMENTS_FILE = requirements.txt
+GITHUB_REPO = https://github.com/Lusija777/excel_to_pdf.git
+
+# Default target
+all: setup
+
+setup: install_python clone_repo venv
+
+# Install Python 3 and pip (Assumes Python 3 is already installed and added to PATH)
+install_python:
+	@echo "Ensure Python 3 and pip are installed..."
+	python --version
+	@echo "Python 3 checked."
+
+# Clone the project from GitHub if not already cloned
+clone_repo:
+	if not exist "$(PROJECT_NAME)" ( \
+		echo "Cloning the project from GitHub..." && \
+		git clone $(GITHUB_REPO) $(PROJECT_NAME) && \
+		echo "Repository cloned." \
+	) else ( \
+		echo "Project already cloned, skipping..." \
+	)
+
+# Create a virtual environment and install dependencies
+venv:
+	@echo "Creating virtual environment..."
+	cd $(PROJECT_NAME) && python -m venv $(VENV_DIR)
+	@echo "Virtual environment created."
+	@echo "Installing dependencies..."
+	cd $(PROJECT_NAME) && $(VENV_DIR)\Scripts\pip install -r $(REQUIREMENTS_FILE)
+	@echo "Dependencies installed."
+
+# Freeze the current environment's packages to a requirements file
+requirements:
+	@echo "Generating requirements.txt..."
+	cd $(PROJECT_NAME) && $(VENV_DIR)\Scripts\pip freeze > $(REQUIREMENTS_FILE)
+	@echo "requirements.txt generated."
+
+# Run the project
+run:
+	@echo "Running the project..."
+	cd $(PROJECT_NAME) && $(VENV_DIR)\Scripts\python create_pdf.py
+
+.PHONY: all install_python clone_repo init venv requirements run
