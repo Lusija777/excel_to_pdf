@@ -40,6 +40,6 @@ requirements:
 # Run the project
 run:
 	@echo "Running the project..."
-	cd $(PROJECT_NAME) && $(VENV_DIR)/bin/python $(SRC_DIR)/main.py
+	cd $(PROJECT_NAME) && $(VENV_DIR)/bin/python create_pdf.py
 
 .PHONY: all install_python clone_repo init venv requirements run
