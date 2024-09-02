@@ -36,7 +36,7 @@ def replace_nan_with_empty(df):
 
 def calculate_column_widths(df, doc_width):
     # Calculate the maximum length of entries in each column
-    max_data_lengths = df.apply(lambda x: x.astype(str).map(len).max(), axis=0)
+    max_data_lengths = df.apply(lambda x: x.astype(str).map(len).max() + 2, axis=0)
 
     # Calculate the length of column headers
     header_lengths = df.columns.to_series().map(len) +2
@@ -75,7 +75,7 @@ def create_pdf(df, output_pdf_path, columns):
         raise ValueError(f"Chýbajú Vám tieto stĺpce: {', '.join(missing_columns)}.")
 
     # Initialize PDF document
-    doc = SimpleDocTemplate(output_pdf_path, pagesize=letter, topMargin=50, bottomMargin=30)
+    doc = SimpleDocTemplate(output_pdf_path, pagesize=letter, topMargin=50, bottomMargin=30, leftMargin=50, rightMargin=50)
     elements = []
 
     # Define styles
