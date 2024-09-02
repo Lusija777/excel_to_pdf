@@ -18,9 +18,13 @@ install_python:
 
 # Clone the project from GitHub
 clone_repo:
-	@echo "Cloning the project from GitHub..."
-	git clone $(GITHUB_REPO) $(PROJECT_NAME)
-	@echo "Repository cloned."
+	@if [ ! -d "$(PROJECT_NAME)" ]; then \
+		echo "Cloning the project from GitHub..."; \
+		git clone $(GITHUB_REPO) $(PROJECT_NAME); \
+		echo "Repository cloned."; \
+	else \
+		echo "Project already cloned, skipping..."; \
+	fi
 
 # Create a virtual environment and install dependencies
 venv:
