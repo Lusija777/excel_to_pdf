@@ -1,3 +1,4 @@
+from init import *
 from datetime import datetime
 import pandas
 from reportlab.lib.pagesizes import letter
@@ -145,12 +146,5 @@ def excel_to_pdf(input_file):
                 break
         except Exception as e:
             print(f"Error pri vykonávaní kódu: {e}")
-
-# Example usage
-input_file = 'Zoznam žiakov.ods'
-
-title1 = "Zoznam žiakov – 1. výchovná skupina"
-title2 = "Vychovávateľ: Ing. Anton Lahučký"
-title3 = "2024/2025"
 
 excel_to_pdf(input_file)
