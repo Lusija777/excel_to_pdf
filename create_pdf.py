@@ -1,13 +1,15 @@
 import os
-from init import *
+import sys
 from datetime import datetime
 import pandas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Spacer
-
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from init import *
 
 # Register DejaVuSans font
 pdfmetrics.registerFont(TTFont('DejaVuSans', 'dejavu-fonts/ttf/DejaVuSans.ttf'))
