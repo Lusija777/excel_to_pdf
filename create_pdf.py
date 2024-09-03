@@ -11,6 +11,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from init import *
 
+pandas.options.mode.chained_assignment = None  # default='warn'
+
 # Register DejaVuSans font
 pdfmetrics.registerFont(TTFont('DejaVuSans', 'dejavu-fonts/ttf/DejaVuSans.ttf'))
 
@@ -28,7 +30,7 @@ def load_data(file_path):
 def format_dates(df, date_columns):
     for col in date_columns:
         if col in df.columns:
-            df.loc[:, col] = pandas.to_datetime(df[col], errors='coerce').dt.strftime('%d.%m.%Y')
+            df[col] = df[col].dt.strftime('%d.%m.%Y')
     return df
 
 def replace_nan_with_empty(df):
