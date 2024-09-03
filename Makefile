@@ -1,5 +1,5 @@
 # Define variables
-PROJECT_NAME = excel_to_pdf_project
+PROJECT_NAME = excel_to_pdf
 VENV_DIR = venv
 REQUIREMENTS_FILE = requirements.txt
 GITHUB_REPO = https://github.com/Lusija777/excel_to_pdf.git
