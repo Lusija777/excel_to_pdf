@@ -25,7 +25,7 @@ Tento nástroj ponúka výber stĺpcov pre vychovávateľov, čo im umožňuje j
 
 5. **Presunutie tabuľkového súboru a init.py:**
    - Váš tabuľkový súbor presuňte do priečinka, kde sa nachádza aj priečinok `excel_to_pdf_project`.
-   - init.py presuňte tiež tam, kde ste presunuli tabuľkový súbor
+   - init.py presuňte tiež tam, kde ste presunuli tabuľkový súbor (z pôvodného miesta ho zmažte)
 
 6. **Spustenie programu:**
    - Vráťte sa do terminálu, cez ktorý ste spustili príkaz `make`, a zadajte príkaz `make run`.
