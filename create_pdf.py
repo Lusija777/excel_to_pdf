@@ -34,7 +34,10 @@ def format_dates(df, date_columns):
     return df
 
 def replace_nan_with_empty(df):
-    return df.fillna('')
+    df = df.fillna('')
+    for col in df.columns:
+        df[col] = df[col].apply(lambda x: str(int(x)) if isinstance(x, float) and x.is_integer() else x)
+    return df
 
 
 def calculate_column_widths(df, doc_width):
@@ -134,7 +137,7 @@ def create_pdf(df, output_pdf_path, columns):
 
 def get_user_input():
     available_columns = [
-        'Izba', 'Škola', 'Trieda', 'Bydlisko', 'Dátum narodenia', 'Telefónne číslo', 'Matka', 'Otec', 'Triedny', 'Triedny telefón', 'Tréner', 'Tréner telefón', 'Aktivita',
+        'Izba', 'Škola', 'Trieda', 'Bydlisko', 'Dátum narodenia', 'Telefónne číslo', 'Matka', 'Otec', 'Triedny', 'Triedny telefón', 'Tréner', 'Tréner telefón', 'Aktivita', 'Internát'
     ]
     print("Prosím vyberte maximum 3 stĺpce s daného listu: (P.č. a Priezvisko a meno sú vybrané automaticky)")
 
@@ -144,8 +147,8 @@ def get_user_input():
     selected_indices = input("Vložte Váš výber oddelený čiarkou (e.g., 1,3,5): ").strip().split(',')
     selected_indices = [int(index) for index in selected_indices if index.isdigit()]
 
-    if len(set(selected_indices)) > 3:
-        print("Môžete vybrať maximálne 3 stĺpce. Skúste to znova.")
+    if len(set(selected_indices)) > 4:
+        print("Môžete vybrať maximálne 4 stĺpce. Skúste to znova.")
         return 0
 
     selected_columns = ['P.č.', 'Priezvisko a meno',]

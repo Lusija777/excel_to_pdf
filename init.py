@@ -1,4 +1,0 @@
-input_file = 'VAS_TABULKOVY_SUBOR'
-title1 = 'HLAVNY_NAZOV'
-title2 = 'VYCHOVAVATEL'
-title3 = 'SKOLSKY_ROK'
